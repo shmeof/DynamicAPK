@@ -272,5 +272,10 @@ DynamicAPK已经在携程旅行Android App中使用，欢迎关注携程移动�
 ### Build
 - $ git clone https://github.com/CtripMobile/DynamicAPK.git
 - $ cd DynamicAPK/
-- $ gradle assembleRelease bundleRelease repackAll
+- $ gradle afterAssembleRelease bundleRelease repackAll
+- $ 上述运行若出错，可尝试分别运行
+- $ gradle afterAssembleRelease
+- $ gradle bundleRelease
+- $ gradle repackAll
 - Release APK in /build-outputs/***-release-final.apk
+
