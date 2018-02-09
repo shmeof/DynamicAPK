@@ -2,11 +2,12 @@
 
 buildscript {
     repositories {
-        //jcenter()
+        jcenter() // add by guodanyang
         maven { url "http://mirrors.ibiblio.org/maven2"}
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.3.1'
+        classpath 'com.android.tools.build:gradle:3.0.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -35,6 +36,7 @@ ext{
     //Debug代码：开发人员可以手动改为false，这样工程就是标准Android工程，可供开发调试。
     //改为true，请使用 gradle assembleRelease bundleRelease repackAll 命令打出多apk的release包。
     solidMode = true
+//    solidMode = false // Debug by guodanyang
     //可以在local.properties里修改这个值。添加一行 solidMode=false 即可。
     solidModeConfigValue = properties.getProperty('solidMode')
     if('true'.equalsIgnoreCase(solidModeConfigValue)){
@@ -48,5 +50,6 @@ ext{
 allprojects {
     repositories {
         jcenter()
+        google()
     }
 }

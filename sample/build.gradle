@@ -22,7 +22,7 @@ android {
             signingConfig signingConfigs.demo
         }
         release {
-            minifyEnabled false
+            minifyEnabled false // 是否开启混淆
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.demo
         }
@@ -42,7 +42,7 @@ dependencies {
 
 //打包后产出物复制到build-outputs目录。apk、manifest、mapping
 task copyReleaseOutputs(type:Copy){
-    from ("$buildDir/outputs/apk/sample-release.apk") {
+    from ("$buildDir/outputs/apk/release/sample-release.apk") {
         rename 'sample-release.apk', 'demo-base-release.apk'
     }
     from "$buildDir/intermediates/manifests/full/release/AndroidManifest.xml"
@@ -53,9 +53,18 @@ task copyReleaseOutputs(type:Copy){
     into new File(rootDir, 'build-outputs')
 }
 
-assembleRelease<<{
-    copyReleaseOutputs.execute()
+//assembleRelease << {
+//    copyReleaseOutputs.execute()
+//}
+task afterAssembleRelease(dependsOn: "assembleRelease") { // guodanyang：加了双引号
+    doLast {
+        copyReleaseOutputs.execute()
+    }
 }
+//project.task('aftAssembleRelease', description: "Runs the target ‘aftAssembleRelease’ with given assembleRelease execution configuration") {
+//    copyReleaseOutputs.execute()
+//    dependsOn 'assembleRelease'
+//}
 
 clean {
     delete buildDir
@@ -129,34 +138,35 @@ def repackApk(originApk, targetApk){
     zipFile.close()
 }
 
-// multidex默认会把manifest中注册的所有组件以及它们的直接引用类放在主dex里，
-// 以保证至少在查找组件的时候涉及到的类加载正确。
-// 但第一级+第二级已经会导致主dex超标。
-// 所以在此hack修改CreateManifestKeepList类，让它不要顾忌activity、service、receiver
-// 以保障主dex足够小不至于爆掉
-def patchKeepSpecs() {
-    def taskClass = "com.android.build.gradle.internal.tasks.multidex.CreateManifestKeepList";
-    def clazz = this.class.classLoader.loadClass(taskClass)
-    def keepSpecsField = clazz.getDeclaredField("KEEP_SPECS")
-    keepSpecsField.setAccessible(true)
-    def keepSpecsMap = (Map) keepSpecsField.get(null)
-    if (keepSpecsMap.remove("activity") != null) {
-        // println "KEEP_SPECS patched: removed 'activity' root"
-    } else {
-        // println "Failed to patch KEEP_SPECS: no 'activity' root found"
-    }
-    if (keepSpecsMap.remove("service") != null) {
-        // println "KEEP_SPECS patched: removed 'service' root"
-    } else {
-        // println "Failed to patch KEEP_SPECS: no 'service' root found"
-    }
-    if (keepSpecsMap.remove("receiver") != null) {
-        // println "KEEP_SPECS patched: removed 'receiver' root"
-    } else {
-        // println "Failed to patch KEEP_SPECS: no 'receiver' root found"
-    }
-}
-patchKeepSpecs()
+//// multidex默认会把manifest中注册的所有组件以及它们的直接引用类放在主dex里，
+//// 以保证至少在查找组件的时候涉及到的类加载正确。
+//// 但第一级+第二级已经会导致主dex超标。
+//// 所以在此hack修改CreateManifestKeepList类，让它不要顾忌activity、service、receiver
+//// 以保障主dex足够小不至于爆掉
+// guodanyang：编译不过，暂时注释掉
+//def patchKeepSpecs() {
+//    def taskClass = "com.android.build.gradle.internal.tasks.multidex.CreateManifestKeepList";
+//    def clazz = this.class.classLoader.loadClass(taskClass)
+//    def keepSpecsField = clazz.getDeclaredField("KEEP_SPECS")
+//    keepSpecsField.setAccessible(true)
+//    def keepSpecsMap = (Map) keepSpecsField.get(null)
+//    if (keepSpecsMap.remove("activity") != null) {
+//        // println "KEEP_SPECS patched: removed 'activity' root"
+//    } else {
+//        // println "Failed to patch KEEP_SPECS: no 'activity' root found"
+//    }
+//    if (keepSpecsMap.remove("service") != null) {
+//        // println "KEEP_SPECS patched: removed 'service' root"
+//    } else {
+//        // println "Failed to patch KEEP_SPECS: no 'service' root found"
+//    }
+//    if (keepSpecsMap.remove("receiver") != null) {
+//        // println "KEEP_SPECS patched: removed 'receiver' root"
+//    } else {
+//        // println "Failed to patch KEEP_SPECS: no 'receiver' root found"
+//    }
+//}
+//patchKeepSpecs()
 
 
 // dex命令默认保障方法数索引不超过65535，

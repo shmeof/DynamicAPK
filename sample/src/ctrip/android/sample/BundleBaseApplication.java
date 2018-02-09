@@ -81,7 +81,6 @@ public class BundleBaseApplication extends Application {
         }
     }
 
-
     private String buildBundleKey() throws PackageManager.NameNotFoundException {
         PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_CONFIGURATIONS);
         return String.valueOf(packageInfo.versionCode) + "_" + packageInfo.versionName;

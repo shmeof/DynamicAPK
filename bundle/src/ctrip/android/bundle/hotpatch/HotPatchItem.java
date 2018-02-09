@@ -88,7 +88,7 @@ public class HotPatchItem {
         BundlePathLoader.installBundleDexs(RuntimeArgs.androidApplication.getClassLoader(), storageDir, files, true);
     }
 
-    public  void  purge(){
+    public void purge(){
 
         deleteDirectory(storageDir);
     }

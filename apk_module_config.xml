@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ApkModules>
 
+    <!-- 插件资源ID编译配置，在 gradle task aaptRelease 中使用到 -->
     <Module  packageName="ctrip.android.demo1" resourceId="0x31"/>
-
     <Module  packageName="ctrip.android.demo2" resourceId="0x36"/>
-
-
 
 </ApkModules>

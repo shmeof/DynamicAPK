@@ -1,7 +1,8 @@
 
 buildscript {
     repositories {
-         mavenCentral()
+        jcenter() // add by guodanyang
+        mavenCentral()
     }
     dependencies {
         classpath 'net.sf.proguard:proguard-gradle:5.2.1'
@@ -10,7 +11,10 @@ buildscript {
 
 import org.apache.tools.ant.taskdefs.condition.Os
 project.ext {
-    BUILD_TOOLS_VERSION = '21.1.2'
+//    BUILD_TOOLS_VERSION = '21.1.2'
+//    TARGET_SDK_VERSION = 23
+
+    BUILD_TOOLS_VERSION = '26.0.2'
     TARGET_SDK_VERSION = 23
 
     sdk = [:]
@@ -50,7 +54,6 @@ task init << {
 
     new File(buildDir, 'intermediates/dex').mkdirs()
 
-
 }
 
 
@@ -62,7 +65,6 @@ task clean (type:Delete) {
 }
 
 task aaptRelease (type: Exec,dependsOn:'init'){
-
 
     inputs.file "$sdk.androidJar"
     inputs.file "${rootDir}/build-outputs/demo-base-release.apk"
@@ -129,8 +131,8 @@ task compileRelease(type: JavaCompile,dependsOn:'aaptRelease') {
     inputs.files fileTree("$buildDir/gen/r").include('**/*.java')
 
     outputs.dir "$buildDir/intermediates/classes"
-    sourceCompatibility = '1.6'
-    targetCompatibility = '1.6'
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
     classpath = files(
             "${sdk.androidJar}",
             "${sdk.apacheJar}",
@@ -142,7 +144,8 @@ task compileRelease(type: JavaCompile,dependsOn:'aaptRelease') {
 
     destinationDir = file("$buildDir/intermediates/classes")
 
-    dependencyCacheDir = file("${buildDir}/dependency-cache")
+    // guodanyang:加了"ext."
+    ext.dependencyCacheDir = file("${buildDir}/dependency-cache")
 
     source = files(fileTree("$projectDir/src").include('**/*.java'),
             fileTree("$buildDir/gen/r").include('**/*.java'))
@@ -198,4 +201,3 @@ task bundleRelease (type:Zip,dependsOn:['compileRelease','aaptRelease','dexRelea
     from zipTree("$buildDir/intermediates/dex/${project.name}_dex.zip")
     from zipTree("$buildDir/intermediates/res/resources.zip")
 }
-

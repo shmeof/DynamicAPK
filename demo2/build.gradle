@@ -9,7 +9,7 @@ if(solidMode){
     apply from: '../global_config.gradle'
     android {
         compileSdkVersion 23
-        buildToolsVersion "23.0.0"
+        buildToolsVersion "26.0.2"
 
         defaultConfig {
 
