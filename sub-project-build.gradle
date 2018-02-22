@@ -64,7 +64,7 @@ task clean (type:Delete) {
     delete "${rootDir}/build-outputs/${apkName}.so"
 }
 
-task aaptRelease (type: Exec,dependsOn:'init'){
+task aaptRelease (type: Exec, dependsOn:'init') {
 
     inputs.file "$sdk.androidJar"
     inputs.file "${rootDir}/build-outputs/demo-base-release.apk"

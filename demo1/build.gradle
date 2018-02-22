@@ -1,13 +1,11 @@
 
-if(solidMode){
+if (solidMode) { // 使用插件化
     project.ext {
         packageName = 'ctrip.android.demo1'
         apkName = packageName.replace('.', '_')
     }
     apply from: '../sub-project-build.gradle'
-}
-else {
-
+} else { // 不使用插件化
     apply plugin: 'com.android.library'
     apply from: '../global_config.gradle'
     android {

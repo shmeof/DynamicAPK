@@ -23,6 +23,7 @@ android {
         }
         release {
             minifyEnabled false // 是否开启混淆
+//            minifyEnabled true // 是否开启混淆
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.demo
         }
@@ -32,16 +33,14 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':bundle')
-    if (!solidMode) {
+    if (!solidMode) { // 不使用插件化，联编插件
         compile project(':demo1')
         compile project(':demo2')
     }
 }
 
-
-
 //打包后产出物复制到build-outputs目录。apk、manifest、mapping
-task copyReleaseOutputs(type:Copy){
+task copyReleaseOutputs(type:Copy) {
     from ("$buildDir/outputs/apk/release/sample-release.apk") {
         rename 'sample-release.apk', 'demo-base-release.apk'
     }

@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+// add by guodanyang
+//import ctrip.android.demo2.R;
+
 public class MainActivity extends Activity {
 
     @Override
@@ -16,6 +19,5 @@ public class MainActivity extends Activity {
         ImageView imageView=(ImageView)findViewById(R.id.demo2_imageView2);
         imageView.setImageResource(R.drawable.sample);
     }
-
 
 }

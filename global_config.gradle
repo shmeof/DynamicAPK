@@ -1,6 +1,4 @@
 //所有工程都要用的公共配置，由各个子模块直接apply from
-
-
 android {
 	compileSdkVersion 23
     buildToolsVersion "26.0.2"
@@ -16,9 +14,11 @@ android {
         debug {
             debuggable true
             minifyEnabled false // 是否开启混淆
+//            minifyEnabled true // 是否开启混淆
         }
         release {
             minifyEnabled false // 是否开启混淆
+//            minifyEnabled true // 是否开启混淆
         }
     }
 
@@ -54,7 +54,7 @@ android {
     lintOptions {
         checkReleaseBuilds true
         abortOnError false
-        check 'NewApi'  //新API
+        check 'NewApi'  // 新API
         showAll true
         textReport true
         textOutput file("${ctripRoot}/build-outputs/lint/${project.name}_lint-report.txt")

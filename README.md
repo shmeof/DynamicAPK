@@ -274,6 +274,7 @@ DynamicAPK已经在携程旅行Android App中使用，欢迎关注携程移动�
 - $ cd DynamicAPK/
 - $ gradle afterAssembleRelease bundleRelease repackAll
 - $ 上述运行若出错，可尝试分别运行
+- $ gradle clean
 - $ gradle afterAssembleRelease
 - $ gradle bundleRelease
 - $ gradle repackAll
