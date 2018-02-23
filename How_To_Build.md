@@ -108,7 +108,7 @@ compileRelease ('aaptRelease')  (/sub-project-build.gradle)
 	demo1/dependency-cache (没有？)
 
 执行：
-    javac
+	javac
 ```
 
 obfuscateRelease (‘compileRelease’)  (/sub-project-build.gradle)
@@ -156,10 +156,9 @@ bundleRelease (‘compileRelease','aaptRelease','dexRelease’)
 	/build-outputs/ctrip_android_demo1.so"
 
 执行：
-    zip
+	zip
 ```
 
-—————
 reload
 
 ```
@@ -233,6 +232,7 @@ repackAll ('reload','resign','repack','realign','concatMappings') (/sample/build
 [携程动态加载实践DynamicAPK项目学习](http://lilei.work/2016/01/18/%E6%90%BA%E7%A8%8B%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E5%AE%9E%E8%B7%B5DynamicAPK%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/)
 
 [Android项目中的Gradle Task流程可视化](https://www.jianshu.com/p/6599de4cdcd1)
+
 [mac下的Graphviz安装及使用](http://blog.csdn.net/qq_36847641/article/details/78224910)
 
 [Gradle脚本基础全攻略](http://blog.csdn.net/yanbober/article/details/49314255)
