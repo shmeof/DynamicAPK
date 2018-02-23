@@ -1,4 +1,4 @@
-##如何编译：携程 - DynamicAPK
+## 如何编译：携程 - DynamicAPK
 
 ### 如何使用
 
@@ -43,12 +43,12 @@ afterAssembleRelease (sample/build.gradle)
 ```
 输入：
 	/sample/build/outputs/apk/release/sample-release.apk
-    rename 'sample-release.apk', 'demo-base-release.apk'
+	rename 'sample-release.apk', 'demo-base-release.apk'
 
 	/sample/build/intermediates/manifests/full/release/AndroidManifest.xml
 
 	/sample/build/outputs/mapping/release/mapping.txt
-    rename 'mapping.txt', 'demo-base-mapping.txt'
+	rename 'mapping.txt', 'demo-base-mapping.txt'
 
 输出：
 	/build-outputs/demo-base-release.apk 宿主代码 + 宿主资源 + 宿主资源id
@@ -61,9 +61,9 @@ afterAssembleRelease (sample/build.gradle)
 init
 
 ```
-    输出：
+输出：
 	/build-outputs
-    /demo1/build/gen/r
+	/demo1/build/gen/r
    	/demo1/intermediates
    	/demo1/intermediates/classes
    	/demo1/intermediates/classes-obfuscated
@@ -84,7 +84,7 @@ aaptRelease (‘init’) (/sub-project-build.gradle)
 	apk_module_config.xml (插件资源id前缀配置文件)
 
 输出：
-	/demo1/build/gen/r/…/R.java                     插件资源id + 宿主资源id
+	/demo1/build/gen/r/…/R.java                插件资源id + 宿主资源id
 	/demo1/intermediates/res/resources.zip     插件资源 + 宿主资源
 	/demo1/intermediates/res/aapt-rules.txt    混淆规则(后续混淆时使用)
 
@@ -101,7 +101,7 @@ compileRelease ('aaptRelease')  (/sub-project-build.gradle)
 	/demo1/gen/r/…/R.java
 	/sample/build/intermediates/classes-proguard/release/classes.jar(没有？)
 	sdk.androidJar
-  	sdk.apacheJar
+	sdk.apacheJar
 
 输出：
 	demo1/intermediates/classes/*.class
@@ -129,7 +129,7 @@ obfuscateRelease (‘compileRelease’)  (/sub-project-build.gradle)
 	/build-outputs/${apkName}-mapping.txt
 
 执行：
-    obfuscate
+	obfuscate
 ```
 
 dexRelease  (/sub-project-build.gradle)
@@ -142,7 +142,7 @@ dexRelease  (/sub-project-build.gradle)
 	/demo1/build/intermediates/dex/demo1_dex.zip"
 
 执行：
-    dex
+	dex
 ```
 
 bundleRelease (‘compileRelease','aaptRelease','dexRelease’) 
@@ -171,7 +171,7 @@ reload
 	/build-outputs/demo-release-reloaded.apk
 
 执行：
-    zip
+	zip
 ```
 
 repack
@@ -228,36 +228,24 @@ repackAll ('reload','resign','repack','realign','concatMappings') (/sample/build
 
 ### 参考
 
-Android 携程动态加载框架的打包流程分析
-http://blog.csdn.net/sbsujjbcy/article/details/49848715
+[Android 携程动态加载框架的打包流程分析](http://blog.csdn.net/sbsujjbcy/article/details/49848715)
 
-携程动态加载实践DynamicAPK项目学习
-http://lilei.work/2016/01/18/%E6%90%BA%E7%A8%8B%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E5%AE%9E%E8%B7%B5DynamicAPK%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/
+[携程动态加载实践DynamicAPK项目学习](http://lilei.work/2016/01/18/%E6%90%BA%E7%A8%8B%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E5%AE%9E%E8%B7%B5DynamicAPK%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/)
 
-Android项目中的Gradle Task流程可视化
-https://www.jianshu.com/p/6599de4cdcd1
-mac下的Graphviz安装及使用
-http://blog.csdn.net/qq_36847641/article/details/78224910
+[Android项目中的Gradle Task流程可视化](https://www.jianshu.com/p/6599de4cdcd1)
+[mac下的Graphviz安装及使用](http://blog.csdn.net/qq_36847641/article/details/78224910)
 
-Gradle脚本基础全攻略
-http://blog.csdn.net/yanbober/article/details/49314255
+[Gradle脚本基础全攻略](http://blog.csdn.net/yanbober/article/details/49314255)
 
-全面理解Gradle - 定义Task
-http://blog.csdn.net/singwhatiwanna/article/details/78898113?utm_source=tuicool&utm_medium=referral
+[全面理解Gradle - 定义Task](http://blog.csdn.net/singwhatiwanna/article/details/78898113?utm_source=tuicool&utm_medium=referral)
 
-正确运行携程DynamicAPK
-http://blog.csdn.net/ujnnet/article/details/52042900
+[正确运行携程DynamicAPK](http://blog.csdn.net/ujnnet/article/details/52042900)
 
-关于MAC下Android SDK manager 更新解决办法（无需翻墙）
-http://blog.csdn.net/c_clear/article/details/50490861
+[关于MAC下Android SDK manager 更新解决办法（无需翻墙）](http://blog.csdn.net/c_clear/article/details/50490861)
 
 ### 编译错误处理参考
 
-The TaskInternal.execute() method has been deprecated and is scheduled to be removed in Gradle 5.0.
-https://discuss.gradle.org/t/the-taskinternal-execute-method-has-been-deprecated-and-is-scheduled-to-be-removed-in-gradle-5-0/24897/11
-
- Registering invalid inputs and outputs via TaskInputs and TaskOutputs methods has been deprecated and is scheduled to be removed in Gradle 5.0.
-distributionUrl=https\://services.gradle.org/distributions/gradle-2.1.2-all.zip
+[The TaskInternal.execute() method has been deprecated and is scheduled to be removed in Gradle 5.0.](https://discuss.gradle.org/t/the-taskinternal-execute-method-has-been-deprecated-and-is-scheduled-to-be-removed-in-gradle-5-0/24897/11)
 
 
 
