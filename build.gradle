@@ -24,7 +24,6 @@ buildscript {
 // for gradle-task-tree
 apply plugin: "com.dorongold.task-tree"
 
-apply plugin: 'cz.malohlava.visteg'
 // for gradle-visteg
 visteg {
     enabled        = true
@@ -37,6 +36,7 @@ visteg {
     startNodeShape = 'hexagon'
     endNodeShape   = 'doubleoctagon'
 }
+apply plugin: 'cz.malohlava.visteg'
 
 ext{
 
